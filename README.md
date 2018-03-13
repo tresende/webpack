@@ -3,6 +3,6 @@ Código do curso *[Webpack: Manipulando módulos na sua webapp](https://cursos.a
 
 ## Development Environment Setup:
 1 - Clone this repository<br />
-2 - Run `npm install`<br />
-3 - Start the app `node server/service.js`<br />
+2 - Run `npm install` in client folder<br />
+3 - Start the app `node server/server.js`<br />
 4 - Access using your preferred browser at `http://localhost:3000`
