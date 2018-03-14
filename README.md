@@ -9,4 +9,5 @@ Código do curso *[Webpack: Manipulando módulos na sua webapp](https://cursos.a
 5 - Access using your preferred browser at `http://localhost:3000`
 
 Prod -> `npm run build-prod`
+<br />
 Dev -> `npm run build-dev`
