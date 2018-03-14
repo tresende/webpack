@@ -10,7 +10,8 @@ const optimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 //for global jquery
 const webpack = require('webpack');
 
-
+//import 
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 let plugins = [];
 
@@ -19,34 +20,48 @@ plugins.push(
 );
 plugins.push(
     new webpack.ProvidePlugin({
-           $: 'jquery/dist/jquery.js',
-           jQuery: 'jquery/dist/jquery.js'
+        $: 'jquery/dist/jquery.js',
+        jQuery: 'jquery/dist/jquery.js'
     })
 );
 
 plugins.push(
     new webpack.optimize.CommonsChunkPlugin(
-        { 
-            name: 'vendor', 
+        {
+            name: 'vendor',
             filename: 'vendor.bundle.js'
         }
     )
 );
 
+plugins.push(new HtmlWebpackPlugin({
+    hash: true,
+    minify: {
+        html5: true,
+        collapseWhitespace: true,
+        removeComments: true,
+    },    
+    filename: 'index.html',
+    template: __dirname + '/main.html'
+}));
+
+let SERVICE_URL = JSON.stringify('http://localhost:3000');
+
 if (process.env.NODE_ENV == 'production') {
+    SERVICE_URL= JSON.stringify('http://api.com:3000');
     plugins.push(new babiliPlugin());
     plugins.push(new webpack.optimize.ModuleConcatenationPlugin())
     plugins.push(new optimizeCSSAssetsPlugin({
         cssProcessor: require('cssnano'),
-        cssProcessorOptions: { 
+        cssProcessorOptions: {
             discardComments: {
-                removeAll: true 
+                removeAll: true
             }
         },
         canPrint: true
-     }));    
+    }));
 }
-
+plugins.push(new webpack.DefinePlugin({ SERVICE_URL }))
 module.exports = {
     entry: {
         app: './app-src/app.js',
@@ -55,7 +70,6 @@ module.exports = {
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist'),
-        publicPath: 'dist'
     },
     module: {
         //file per file
