@@ -2,6 +2,10 @@ import { NegociacaoController } from './controllers/NegociacaoController.js';
 import { Negociacao } from './domain/index.js';
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/css/bootstrap-theme.css'
+
+//modal
+import 'bootstrap/js/modal.js';
+
 import '../css/meucss.css'
 
 
